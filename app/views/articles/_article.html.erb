@@ -1,7 +1,10 @@
 <div class="article">
 	<h2><%= article.title %> ...</h2>
 	<p><%= article.body.html_safe %></p>
-	<p class="actions"><%= pluralize(article.views_count, 'view')%></p>
+	<p class="actions">
+	   <%= pluralize(article.views_count, 'view')%> | 
+	   <%= pluralize(article.comments.count, 'comment')%>
+	</p>
 	<p class="actions">
 		<%= link_to 'Show', article %> | 
 		<%= link_to 'Edit', edit_article_path(article) %> |

@@ -4,13 +4,15 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.all
+    @articles = Article.order("created_at DESC")
   end
 
   # GET /articles/1
   # GET /articles/1.json
   def show
     @article.increment!(:views_count)
+    
+    @comment=@article.comments.build
   end
 
   # GET /articles/new
