@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
+  
+  get 'users/:user_id/articles' => "articles#index"
+  
   resources :articles do
     resources :comments, only: [:index,:create]
   end

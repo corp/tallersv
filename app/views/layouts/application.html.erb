@@ -12,6 +12,8 @@
  <div class="usernav">	
 	<div class="account-actions">
 	<%if user_signed_in?%>
+	  <%=current_user.name unless current_user.name.blank?%> | 
+	
 	  <%=link_to "Edit Profile", edit_user_registration_path%> | 
 	  <%=link_to "Sing out", destroy_user_session_path, method: :delete %>
 	<%else%>
