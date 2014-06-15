@@ -1,7 +1,7 @@
 <div class="article">
 	<h2><%= article.title %> ...</h2>
 	<p>
-	<%= image_tag (article.photo.url) unless article.photo.nil? %>
+	<%= image_tag article.photo.medium.url unless article.photo.nil? %>
 	<%= article.body.html_safe %>
 	</p>
 	<p class="actions">

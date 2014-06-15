@@ -21,6 +21,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 
 gem 'devise'
+gem 'mini_magick'
 gem 'carrierwave'
 gem "fog", "~> 1.3.1"
 
