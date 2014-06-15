@@ -2,7 +2,7 @@
 	<h2><%= article.title %> ...</h2>
 	<p><%= article.body.html_safe %></p>
 	<p class="actions">
-	   by <%=article.user.name%>
+	   by <%=article.user.email%>
 	   <%= pluralize(article.views_count, 'view')%> | 
 	   <%= pluralize(article.comments.count, 'comment')%>
 	</p>

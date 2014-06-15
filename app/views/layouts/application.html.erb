@@ -9,6 +9,24 @@
 <body>
 
 <div class="main-container">
+ <div class="usernav">	
+	<div class="account-actions">
+	<%if user_signed_in?%>
+	  <%=link_to "Edit Profile", edit_user_registration_path%> | 
+	  <%=link_to "Sing out", destroy_user_session_path, method: :delete %>
+	<%else%>
+	  <%=link_to "Sing in", new_user_session_path%>
+	<%end%>
+	</div>
+	
+	<div class="menu">
+		<%=link_to "Home", root_path%>
+	</div>
+ </div>
+
+ <p class="notice"><%= notice %></p>
+ <p class="alert"><%= alert %></p>
+
  <%= yield %>
 </div>
 
