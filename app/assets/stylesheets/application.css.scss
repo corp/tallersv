@@ -18,3 +18,22 @@
 	width:90%;
 	margin:auto;
 }
+
+.usernav{
+	border:solid 1px #CCC;
+	width:100%;
+	padding:10px 5px;
+	float:left;
+	margin-bottom:20px;
+	
+	.menu{
+	   float:left;
+	   text-align:left;
+	}
+
+	.account-actions{
+	   width:40%;
+	   float:right;
+	   text-align:right;
+	}
+}
