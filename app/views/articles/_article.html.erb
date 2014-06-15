@@ -1,6 +1,9 @@
 <div class="article">
 	<h2><%= article.title %> ...</h2>
-	<p><%= article.body.html_safe %></p>
+	<p>
+	<%= image_tag (article.photo.url) unless article.photo.nil? %>
+	<%= article.body.html_safe %>
+	</p>
 	<p class="actions">
 	   by <%=article.user.email%>
 	   <%= pluralize(article.views_count, 'view')%> | 
