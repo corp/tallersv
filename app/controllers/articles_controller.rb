@@ -6,7 +6,22 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.order("created_at DESC")
+    if params[:user_id]
+      @user=User.find_by_id(params[:user_id])
+      
+      if @user.nil?
+        redirect_to root_path, :notice=>"user not found"
+      end
+    end
+    
+    if @user
+      @articles = @user.articles.order("created_at DESC")
+      @list_title="Listing articles from #{@user.name}"
+    else
+      @articles = Article.order("created_at DESC")
+      @list_title="Listing all articles"
+    end
+    
   end
 
   # GET /articles/1
