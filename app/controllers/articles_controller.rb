@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  
+  before_action :clean_multi_ids, only: [:create, :update]
   before_action :set_article, only: [:show, :edit, :update, :destroy]
 
   # GET /articles
@@ -86,9 +86,13 @@ class ArticlesController < ApplicationController
     def set_article
       @article = Article.find(params[:id])
     end
+    
+    def clean_multi_ids
+      params[:article][:category_ids].delete_if{|e| e=="0"}
+    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
-      params.require(:article).permit(:title, :body, :photo)
+      params.require(:article).permit(:title, :body, :photo, category_ids:[])
     end
 end

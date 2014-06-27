@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :categories
+
   devise_for :users
   
   get 'users/:user_id/articles' => "articles#index"

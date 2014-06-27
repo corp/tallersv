@@ -26,6 +26,18 @@
 	<%= f.hidden_field :photo_cache %>
   </div>
 
+  <div class="field">
+	<%= f.label :categories %><br>
+	<ul>
+  	    <%Category.order("name ASC").each do |category|%>
+	      <li>
+	         <%=f.check_box :category_ids, {:name=>"article[category_ids][]", :id=>"category_#{category.id}"},category.id %>
+	        <label for="category_<%=category.id%>" style="display:inline" ><%=category.name%></label>
+	      </li>
+	    <%end%>
+	</ul>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
