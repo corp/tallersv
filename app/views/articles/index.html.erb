@@ -4,10 +4,13 @@
 <%= link_to 'New Article', new_article_path %>
 </div>
 
+
 <%= will_paginate @articles %>
 
-<% @articles.each do |article| %>
-  <%= render partial:'article', locals: {article: article} %>
+<% cache do %>
+	<% @articles.each do |article| %>
+	  <%= render partial:'article', locals: {article: article} %>
+	<%end%>
 <%end%>
 
 <%= will_paginate @articles %>

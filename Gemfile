@@ -26,6 +26,8 @@ gem 'carrierwave'
 gem "fog", "~> 1.3.1"
 gem 'unicorn'
 gem 'will_paginate'
+gem 'memcachier'
+gem 'dalli'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
