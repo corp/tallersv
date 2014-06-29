@@ -16,7 +16,9 @@ class ArticlesController < ApplicationController
       redirect_to root_path, :notice=>"Category not found" if @category.nil?
     end
     
-    @cache_key="articles_#{params[:user_id]}_#{params[:slug]}_#{params[:page]}"
+    last_updated = Article.order("updated_at DESC").limit(1).first
+    
+    @cache_key="articles_#{params[:user_id]}_#{params[:slug]}_#{params[:page]}_#{last_updated.updated_at.to_i}"
     @cache_view_key = "#{@cache_key}_view"
     
     if @user
