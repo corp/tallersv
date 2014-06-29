@@ -3,7 +3,7 @@ class Article < ActiveRecord::Base
   has_and_belongs_to_many :categories
   
   belongs_to :user
-  after_create :notify_author
+  #after_create :notify_author
   
   validates :title, presence: true, length: { minimum: 10 }
   
