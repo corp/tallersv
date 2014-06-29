@@ -5,12 +5,12 @@
 </div>
 
 
-<%= will_paginate @articles %>
+<%cache @cache_view_key do%>
+	<%= will_paginate @articles %>
 
-<% cache do %>
 	<% @articles.each do |article| %>
 	  <%= render partial:'article', locals: {article: article} %>
 	<%end%>
-<%end%>
 
-<%= will_paginate @articles %>
+	<%= will_paginate @articles %>
+<%end%>

@@ -16,14 +16,23 @@ class ArticlesController < ApplicationController
       redirect_to root_path, :notice=>"Category not found" if @category.nil?
     end
     
+    @cache_key="articles_#{params[:user_id]}_#{params[:slug]}_#{params[:page]}"
+    @cache_view_key = "#{@cache_key}_view"
+    
     if @user
-      @articles = @user.articles.order("created_at DESC").paginate(page: params[:page], per_page: per_page)
+      @articles = Rails.cache.fetch(@cache_key){
+        @user.articles.order("created_at DESC").paginate(page: params[:page], per_page: per_page)
+        }
       @list_title="Listing articles from #{@user.name}"
     elsif @category
-      @articles = @category.articles.order("created_at DESC").paginate(page: params[:page], per_page: per_page)
+      @articles = Rails.cache.fetch(@cache_key){
+        @category.articles.order("created_at DESC").paginate(page: params[:page], per_page: per_page)
+      }
       @list_title="Listing articles in #{@category.name}"
     else
-      @articles = Article.order("created_at DESC").paginate(page: params[:page], per_page: per_page)
+      @articles = Rails.cache.fetch(@cache_key){
+        Article.order("created_at DESC").paginate(page: params[:page], per_page: per_page)
+      }
       @list_title="Listing all articles"
     end
     
