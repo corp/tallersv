@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  
+  before_action :clean_multi_ids, only: [:create, :update]
   before_action :set_article, only: [:show, :edit, :update, :destroy]
 
   # GET /articles
@@ -8,15 +8,18 @@ class ArticlesController < ApplicationController
   def index
     if params[:user_id]
       @user=User.find_by_id(params[:user_id])
-      
-      if @user.nil?
-        redirect_to root_path, :notice=>"user not found"
-      end
+      redirect_to root_path, :notice=>"user not found" if @user.nil?
+    elsif params[:slug]
+      @category=Category.find_by_slug(params[:slug])
+      redirect_to root_path, :notice=>"Category not found" if @category.nil?
     end
     
     if @user
       @articles = @user.articles.order("created_at DESC")
       @list_title="Listing articles from #{@user.name}"
+    elsif @category
+      @articles = @category.articles.order("created_at DESC")
+      @list_title="Listing articles in #{@category.name}"
     else
       @articles = Article.order("created_at DESC")
       @list_title="Listing all articles"
@@ -87,8 +90,12 @@ class ArticlesController < ApplicationController
       @article = Article.find(params[:id])
     end
 
+    def clean_multi_ids
+      params[:article][:category_ids].delete_if{|e| e=="0"}
+    end
+    
     # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
-      params.require(:article).permit(:title, :body, :photo)
+      params.require(:article).permit(:title, :body, :photo, :photo_cache, category_ids: [])
     end
 end

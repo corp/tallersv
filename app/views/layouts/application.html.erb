@@ -23,6 +23,9 @@
 	
 	<div class="menu">
 		<%=link_to "Home", root_path%>
+		<%Category.order("name ASC").each do |category|%>
+		  | <%=link_to category.name, category_articles_path(slug: category.slug)%> 
+		<%end%>
 	</div>
  </div>
 

@@ -4,6 +4,9 @@
 	<%= image_tag article.photo.medium.url unless article.photo.nil? %>
 	<%= article.body.html_safe %>
 	</p>
+	<p>
+		Categories:<%=article.categories.map(&:name).join(", ")%>
+	<p>
 	<p class="actions">
 	   by <%=article.user.email%>
 	   <%= pluralize(article.views_count, 'view')%> | 

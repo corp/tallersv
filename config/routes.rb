@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
+  resources :categories
+
   devise_for :users
   
   get 'users/:user_id/articles' => "articles#index"
+  get 'in/:slug' => "articles#index", as: :category_articles
   
   resources :articles do
     resources :comments, only: [:index,:create]
