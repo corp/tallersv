@@ -6,6 +6,8 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
+    per_page = 20
+    
     if params[:user_id]
       @user=User.find_by_id(params[:user_id])
       redirect_to root_path, :notice=>"user not found" if @user.nil?
@@ -15,13 +17,13 @@ class ArticlesController < ApplicationController
     end
     
     if @user
-      @articles = @user.articles.order("created_at DESC")
+      @articles = @user.articles.order("created_at DESC").paginate(page: params[:page], per_page: per_page)
       @list_title="Listing articles from #{@user.name}"
     elsif @category
-      @articles = @category.articles.order("created_at DESC")
+      @articles = @category.articles.order("created_at DESC").paginate(page: params[:page], per_page: per_page)
       @list_title="Listing articles in #{@category.name}"
     else
-      @articles = Article.order("created_at DESC")
+      @articles = Article.order("created_at DESC").paginate(page: params[:page], per_page: per_page)
       @list_title="Listing all articles"
     end
     

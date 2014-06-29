@@ -1,9 +1,13 @@
 <h1><%=@list_title%></h1>
 
-<div class="new_button">
+<div class="new_button" style="float:right">
 <%= link_to 'New Article', new_article_path %>
 </div>
+
+<%= will_paginate @articles %>
 
 <% @articles.each do |article| %>
   <%= render partial:'article', locals: {article: article} %>
 <%end%>
+
+<%= will_paginate @articles %>
