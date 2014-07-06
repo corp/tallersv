@@ -6,34 +6,62 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
 
-<div class="main-container">
- <div class="usernav">	
-	<div class="account-actions">
-	<%if user_signed_in?%>
-	  <%=current_user.name unless current_user.name.blank?%> | 
+<body role="document">
+   <!-- Fixed navbar -->
+   <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+     <div class="container">
+       <div class="navbar-header">
+         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+           <span class="sr-only">Toggle navigation</span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+         </button>
+         <a class="navbar-brand" href="#">Bootstrap theme</a>
+       </div>
+       <div class="navbar-collapse collapse">
+         <ul class="nav navbar-nav">
+           <li class="active"><%=link_to "Home", root_path%></li>
+           <li class="dropdown">
+             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categorias <span class="caret"></span></a>
+             <ul class="dropdown-menu" role="menu">
+				<%Category.order("name ASC").each do |category|%>
+				  <li><%=link_to category.name, category_articles_path(slug: category.slug)%></li>
+				<%end%>
+             </ul>
+           </li>
+           <li class="dropdown">
+             <a href="#" class="dropdown-toggle" data-toggle="dropdown"> 
+			 <%if user_signed_in?%>	
+				<%=current_user.name unless current_user.name.blank?%>
+			 <%else%>
+			    Cuenta
+			 <%end%>
+	         <span class="caret"></span></a>
+             <ul class="dropdown-menu" role="menu">
+				<%if user_signed_in?%>
+				  
+				  <li><%=link_to "Edit Profile", edit_user_registration_path%></li>
+				  <li><%=link_to "Sing out", destroy_user_session_path, method: :delete %></li>
+				<%else%>
+				  <li><%=link_to "Sing in", new_user_session_path%></li>
+				  <li><%=link_to "Sing up", new_user_registration_path%></li>
+				<%end%>
+             </ul>
+           </li>
+         </ul>
+       </div><!--/.nav-collapse -->
+     </div>
+   </div>
+
+   <div class="container theme-showcase" role="main">
 	
-	  <%=link_to "Edit Profile", edit_user_registration_path%> | 
-	  <%=link_to "Sing out", destroy_user_session_path, method: :delete %>
-	<%else%>
-	  <%=link_to "Sing in", new_user_session_path%>
-	<%end%>
-	</div>
+	 <p class="notice"><%= notice %></p>
+	 <p class="alert"><%= alert %></p>
+
+	 <%= yield %>
 	
-	<div class="menu">
-		<%=link_to "Home", root_path%>
-		<%Category.order("name ASC").each do |category|%>
-		  | <%=link_to category.name, category_articles_path(slug: category.slug)%> 
-		<%end%>
-	</div>
- </div>
-
- <p class="notice"><%= notice %></p>
- <p class="alert"><%= alert %></p>
-
- <%= yield %>
-</div>
-
+   </div> <!-- /container -->
 </body>
 </html>

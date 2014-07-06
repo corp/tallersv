@@ -16,4 +16,5 @@ class Article < ActiveRecord::Base
   def notify_author
     ArticleMailer.article_published(self).deliver
   end
+  
 end
