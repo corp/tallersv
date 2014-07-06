@@ -41,6 +41,7 @@ gem 'spring',        group: :development
 
 gem 'rails_12factor', group: :production
 
+gem 'asset_sync'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
