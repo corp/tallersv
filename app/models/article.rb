@@ -19,5 +19,6 @@ class Article < ActiveRecord::Base
     sleep 5
     print "--- Terminando tarea tardada ...."
   end
+  handle_asynchronously :notify_author
   
 end
