@@ -4,4 +4,3 @@ task :reset_counters => :environment do
   Article.reset_daily_counters
   puts "done."
 end
-
