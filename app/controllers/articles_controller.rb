@@ -44,7 +44,7 @@ class ArticlesController < ApplicationController
   # GET /articles/1.json
   def show
     @article.increment!(:views_count)
-    
+    @article.increment!(:daily_views)
     @comment=@article.comments.build
   end
 

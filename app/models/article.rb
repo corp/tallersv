@@ -21,4 +21,7 @@ class Article < ActiveRecord::Base
   end
   handle_asynchronously :notify_author
   
+  def self.reset_daily_counters
+    Article.update_all(daily_views:0)
+  end
 end

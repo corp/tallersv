@@ -8,7 +8,7 @@
 		Categories:<%=article.categories.map(&:name).join(", ")%>
 	<p>
 	<p class="actions">
-	   by <%=article.user.email%>
+	   by <%=article.user.email%> (viewed <%=article.daily_views%> times today)
 	   <%= pluralize(article.views_count, 'view')%> | 
 	   <%= pluralize(article.comments.count, 'comment')%>
 	</p>
