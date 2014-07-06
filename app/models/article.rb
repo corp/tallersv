@@ -15,6 +15,9 @@ class Article < ActiveRecord::Base
   
   def notify_author
     ArticleMailer.article_published(self).deliver
+    print "--- Iniciando tarea tardada ...."
+    sleep 5
+    print "--- Terminando tarea tardada ...."
   end
   
 end
